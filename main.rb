@@ -1,14 +1,12 @@
 require 'sinatra'
 require 'line/bot'
-require 'mecab'
-require 'natto'
+require './gobi'
 
 get '/' do
-  "Hello world"
-  str = "我々宇宙人は地球を侵略しに来ました。"
-  nm = Natto::MeCab.new
-  "#{nm.parse(str)}"
+  str = params['word']#"我々宇宙人は地球を侵略しに来ました。"
+  Gobi.add_gobi(str)
 end
+
 
 def client
   @client ||= Line::Bot::Client.new { |config|
@@ -33,7 +31,7 @@ post '/callback' do
       when Line::Bot::Event::MessageType::Text
         message = {
           type: 'text',
-          text: event.message['text']
+          text: Gobi.add_gobi(event.message['text'])
         }
         client.reply_message(event['replyToken'], message)
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
