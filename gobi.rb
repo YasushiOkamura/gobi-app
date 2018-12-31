@@ -10,7 +10,7 @@ class Gobi
       result += 'ぷり' if flag && n.feature.split(',')[0] != '名詞' && n.feature.split(',')[0] != '助動詞'
       flag = false
       flag = true if n.feature.split(',')[0] == '助動詞'
-      result += "#{n.surface}" if n.is_nor?
+      result += "#{n.surface}"
     end
     result
   end
