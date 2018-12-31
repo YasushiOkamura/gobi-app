@@ -1,8 +1,13 @@
 require 'sinatra'
 require 'line/bot'
+require 'mecab'
+require 'natto'
 
 get '/' do
   "Hello world"
+  str = "我々宇宙人は地球を侵略しに来ました。"
+  nm = Natto::MeCab.new
+  "#{nm.parse(str)}"
 end
 
 def client
